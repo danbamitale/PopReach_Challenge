@@ -7,11 +7,14 @@ import com.danbamitale.popreach.models.ShapeOperation
 import kotlinx.coroutines.flow.*
 import java.lang.Exception
 import java.lang.RuntimeException
+import java.security.SecureRandom
 import java.util.*
 import kotlin.random.Random
 
 class HomeFragmentViewModel : ViewModel() {
-    private val random = Random(System.currentTimeMillis())
+    private val random = SecureRandom().apply {
+        setSeed(System.nanoTime())
+    }
     private var viewHeight = 1600
     private var viewWidth = 900
 
@@ -50,6 +53,7 @@ class HomeFragmentViewModel : ViewModel() {
 
     fun draw(type: ShapeFactory.Type) {
         val shape = ShapeFactory.createShape(type, getRandomPoint())
+
         if (!overlaps(shape)) {
             backStack.push(shape)
             lastOperation.value = ShapeOperation.Create(shape)

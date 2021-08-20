@@ -3,6 +3,7 @@ package com.danbamitale.popreach.fragments
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.core.view.doOnLayout
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
@@ -54,7 +55,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>() {
                 launch {
                     viewModel.onError.collect {
                         it?.let {
-                            Snackbar.make(binding.snackbarPosView, it.localizedMessage, Snackbar.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(), it.localizedMessage, Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
